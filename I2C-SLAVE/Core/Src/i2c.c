@@ -6,22 +6,24 @@ void delay()
   uint32_t i;
   for(i=0; i<100000; ++i);
 }
-
-void i2c_Start(){
-	I2C_SCL_1();
-	I2C_SDA_1();
-	delay();
-	I2C_SDA_0();
-	delay();
-	I2C_SCL_0();
-	delay();
+int i = 0;
+u8 is_i2c_Start(){
+	for(i=0; i<50000; ++i);
+	if(I2C_SCL_READ()){
+		for(i=0; i<50250; ++i);
+		if(!I2C_SCL_READ()){
+			return GPIO_PIN_SET;
+		}
+	}
+	return GPIO_PIN_RESET;
 }
 
-void i2c_Stop(){
-	I2C_SDA_0();
-	I2C_SCL_1();
-	delay();
-	I2C_SDA_1();
+u8 is_i2c_Stop(){
+	if(I2C_SCL_READ()){
+		delay();
+		return GPIO_PIN_SET;
+	}
+	return GPIO_PIN_RESET;
 }
 
 u8 i2c_WaitAck(){
@@ -68,13 +70,10 @@ u8 I2C_ReadByte(){
 u32 I2C_Write(u8 slave_addr, u8 *data, u32 data_length){
 	u8 *pdata = data;
 	u32 len = data_length;
-	i2c_Start();
-	I2C_SendByte(&slave_addr);
 	while(len--){
 		I2C_SendByte(&pdata[len]);
 		delay();
 	}
-	i2c_Stop();
 	return 0;
 }
 u32 I2C_Read(u8 slave_addr, u8 *buff, u8 numByteToRead){
@@ -99,15 +98,7 @@ void test(){
 
 void callback(){
 	LED_ON;
-	delay();
-	LED_OFF;
-	delay();
-	LED_ON;
-	delay();
-	LED_OFF;
-	delay();
-	LED_ON;
-	delay();
+	for(i=0; i<30000; ++i);
 	LED_OFF;
 }
 

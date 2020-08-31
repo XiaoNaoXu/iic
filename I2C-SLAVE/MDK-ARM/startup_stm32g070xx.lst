@@ -355,12 +355,11 @@ ARM Macro Assembler    Page 6
               00000000 
 Command Line: --debug --xref --diag_suppress=9931 --cpu=Cortex-M0+ --apcs=inter
 work --depend=ttttt\startup_stm32g070xx.d -ottttt\startup_stm32g070xx.o -I.\RTE
-\_ttttt -IC:\Users\xiaonaoxu\AppData\Local\Arm\Packs\ARM\CMSIS\5.7.0\CMSIS\Core
-\Include -IC:\Users\xiaonaoxu\AppData\Local\Arm\Packs\Keil\STM32G0xx_DFP\1.2.0\
-Drivers\CMSIS\Device\ST\STM32G0xx\Include --predefine="__EVAL SETA 1" --predefi
-ne="__MICROLIB SETA 1" --predefine="__UVISION_VERSION SETA 531" --predefine="_R
-TE_ SETA 1" --predefine="STM32G070xx SETA 1" --predefine="_RTE_ SETA 1" --list=
-startup_stm32g070xx.lst startup_stm32g070xx.s
+\_ttttt -IC:\Keil_v5\ARM\PACK\ARM\CMSIS\5.4.0\CMSIS\Core\Include -IC:\Keil_v5\A
+RM\PACK\Keil\STM32G0xx_DFP\1.2.0\Drivers\CMSIS\Device\ST\STM32G0xx\Include --pr
+edefine="__EVAL SETA 1" --predefine="__MICROLIB SETA 1" --predefine="__UVISION_
+VERSION SETA 526" --predefine="_RTE_ SETA 1" --predefine="STM32G070xx SETA 1" -
+-list=startup_stm32g070xx.lst startup_stm32g070xx.s
 
 
 

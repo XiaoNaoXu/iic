@@ -4,7 +4,7 @@
 void delay()            
 {
   uint32_t i;
-  for(i=0; i<10000; ++i);
+  for(i=0; i<100000; ++i);
 }
 
 void i2c_Start(){
@@ -76,11 +76,11 @@ u32 I2C_Write(u8 slave_addr, u8 *data, u32 data_length){
 	u32 len = data_length;
 	i2c_Start();
 	I2C_SendByte(&slave_addr);
-	while(len--){
-		I2C_SendByte(&pdata[len]);
-		delay();
-	}
-	i2c_Stop();
+//	while(len--){
+//		I2C_SendByte(&pdata[len]);
+//		delay();
+//	}
+	i2c_Stop();		
 	return 0;
 }
 u32 I2C_Read(u8 slave_addr, u8 *buff, u8 numByteToRead){

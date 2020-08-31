@@ -3,7 +3,7 @@
 <title>Static Call Graph - [ttttt\ttttt.axf]</title></head>
 <body><HR>
 <H1>Static Call Graph for image ttttt\ttttt.axf</H1><HR>
-<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5060750: Last Updated: Mon Aug 31 01:54:06 2020
+<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5060750: Last Updated: Mon Aug 31 18:49:05 2020
 <BR><P>
 <H3>Maximum Stack Usage =        132 bytes + Unknown(Cycles, Untraceable Function Pointers)</H3><H3>
 Call chain for Maximum Stack Depth:</H3>
@@ -211,23 +211,23 @@ Global Symbols
 <P><STRONG><a name="[4e]"></a>__scatterload_rt2</STRONG> (Thumb, 0 bytes, Stack size 0 bytes, init.o(.text), UNUSED)
 
 <P><STRONG><a name="[c]"></a>EXTI4_15_IRQHandler</STRONG> (Thumb, 12 bytes, Stack size 8 bytes, stm32g0xx_it.o(i.EXTI4_15_IRQHandler))
-<BR><BR>[Stack]<UL><LI>Max Depth = 40<LI>Call Chain = EXTI4_15_IRQHandler &rArr; HAL_GPIO_EXTI_IRQHandler &rArr; HAL_GPIO_EXTI_Falling_Callback &rArr; callback
+<BR><BR>[Stack]<UL><LI>Max Depth = 48<LI>Call Chain = EXTI4_15_IRQHandler &rArr; HAL_GPIO_EXTI_IRQHandler &rArr; HAL_GPIO_EXTI_Falling_Callback &rArr; is_i2c_Start
 </UL>
 <BR>[Calls]<UL><LI><a href="#[2a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_GPIO_EXTI_IRQHandler
 </UL>
 <BR>[Address Reference Count : 1]<UL><LI> startup_stm32g070xx.o(RESET)
 </UL>
-<P><STRONG><a name="[2b]"></a>HAL_GPIO_EXTI_Falling_Callback</STRONG> (Thumb, 20 bytes, Stack size 8 bytes, main.o(i.HAL_GPIO_EXTI_Falling_Callback))
-<BR><BR>[Stack]<UL><LI>Max Depth = 16<LI>Call Chain = HAL_GPIO_EXTI_Falling_Callback &rArr; callback
+<P><STRONG><a name="[2b]"></a>HAL_GPIO_EXTI_Falling_Callback</STRONG> (Thumb, 16 bytes, Stack size 8 bytes, main.o(i.HAL_GPIO_EXTI_Falling_Callback))
+<BR><BR>[Stack]<UL><LI>Max Depth = 24<LI>Call Chain = HAL_GPIO_EXTI_Falling_Callback &rArr; is_i2c_Start
 </UL>
-<BR>[Calls]<UL><LI><a href="#[2d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;callback
-<LI><a href="#[2c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_GPIO_ReadPin
+<BR>[Calls]<UL><LI><a href="#[2c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;is_i2c_Start
+<LI><a href="#[2d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;callback
 </UL>
 <BR>[Called By]<UL><LI><a href="#[2a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_GPIO_EXTI_IRQHandler
 </UL>
 
 <P><STRONG><a name="[2a]"></a>HAL_GPIO_EXTI_IRQHandler</STRONG> (Thumb, 36 bytes, Stack size 16 bytes, stm32g0xx_hal_gpio.o(i.HAL_GPIO_EXTI_IRQHandler))
-<BR><BR>[Stack]<UL><LI>Max Depth = 32<LI>Call Chain = HAL_GPIO_EXTI_IRQHandler &rArr; HAL_GPIO_EXTI_Falling_Callback &rArr; callback
+<BR><BR>[Stack]<UL><LI>Max Depth = 40<LI>Call Chain = HAL_GPIO_EXTI_IRQHandler &rArr; HAL_GPIO_EXTI_Falling_Callback &rArr; is_i2c_Start
 </UL>
 <BR>[Calls]<UL><LI><a href="#[2e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_GPIO_EXTI_Rising_Callback
 <LI><a href="#[2b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_GPIO_EXTI_Falling_Callback
@@ -245,8 +245,8 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[3c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MX_GPIO_Init
 </UL>
 
-<P><STRONG><a name="[2c]"></a>HAL_GPIO_ReadPin</STRONG> (Thumb, 10 bytes, Stack size 0 bytes, stm32g0xx_hal_gpio.o(i.HAL_GPIO_ReadPin))
-<BR><BR>[Called By]<UL><LI><a href="#[2b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_GPIO_EXTI_Falling_Callback
+<P><STRONG><a name="[43]"></a>HAL_GPIO_ReadPin</STRONG> (Thumb, 10 bytes, Stack size 0 bytes, stm32g0xx_hal_gpio.o(i.HAL_GPIO_ReadPin))
+<BR><BR>[Called By]<UL><LI><a href="#[2c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;is_i2c_Start
 </UL>
 
 <P><STRONG><a name="[3e]"></a>HAL_GPIO_WritePin</STRONG> (Thumb, 12 bytes, Stack size 0 bytes, stm32g0xx_hal_gpio.o(i.HAL_GPIO_WritePin))
@@ -396,17 +396,20 @@ Global Symbols
 
 <P><STRONG><a name="[51]"></a>__scatterload_zeroinit</STRONG> (Thumb, 14 bytes, Stack size unknown bytes, handlers.o(i.__scatterload_zeroinit), UNUSED)
 
-<P><STRONG><a name="[2d]"></a>callback</STRONG> (Thumb, 88 bytes, Stack size 8 bytes, i2c.o(i.callback))
+<P><STRONG><a name="[2d]"></a>callback</STRONG> (Thumb, 44 bytes, Stack size 8 bytes, i2c.o(i.callback))
 <BR><BR>[Stack]<UL><LI>Max Depth = 8<LI>Call Chain = callback
 </UL>
-<BR>[Calls]<UL><LI><a href="#[43]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;delay
-<LI><a href="#[3e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_GPIO_WritePin
+<BR>[Calls]<UL><LI><a href="#[3e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_GPIO_WritePin
 </UL>
 <BR>[Called By]<UL><LI><a href="#[2b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_GPIO_EXTI_Falling_Callback
 </UL>
 
-<P><STRONG><a name="[43]"></a>delay</STRONG> (Thumb, 12 bytes, Stack size 0 bytes, i2c.o(i.delay))
-<BR><BR>[Called By]<UL><LI><a href="#[2d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;callback
+<P><STRONG><a name="[2c]"></a>is_i2c_Start</STRONG> (Thumb, 68 bytes, Stack size 16 bytes, i2c.o(i.is_i2c_Start))
+<BR><BR>[Stack]<UL><LI>Max Depth = 16<LI>Call Chain = is_i2c_Start
+</UL>
+<BR>[Calls]<UL><LI><a href="#[43]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_GPIO_ReadPin
+</UL>
+<BR>[Called By]<UL><LI><a href="#[2b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_GPIO_EXTI_Falling_Callback
 </UL>
 
 <P><STRONG><a name="[21]"></a>main</STRONG> (Thumb, 14 bytes, Stack size 0 bytes, main.o(i.main))
@@ -421,7 +424,7 @@ Global Symbols
 <H3>
 Local Symbols
 </H3>
-<P><STRONG><a name="[3c]"></a>MX_GPIO_Init</STRONG> (Thumb, 160 bytes, Stack size 48 bytes, main.o(i.MX_GPIO_Init))
+<P><STRONG><a name="[3c]"></a>MX_GPIO_Init</STRONG> (Thumb, 170 bytes, Stack size 48 bytes, main.o(i.MX_GPIO_Init))
 <BR><BR>[Stack]<UL><LI>Max Depth = 68<LI>Call Chain = MX_GPIO_Init &rArr; HAL_GPIO_Init
 </UL>
 <BR>[Calls]<UL><LI><a href="#[34]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_NVIC_SetPriority

@@ -40,8 +40,8 @@ typedef uint8_t u8;
 //the time delay function
 void delay(void);
 
-void i2c_Start(void);
-void i2c_Stop(void);
+u8 is_i2c_Start(void);
+u8 is_i2c_Stop(void);
 void i2c_Ack(void);
 void i2c_NAck(void);
 u8 i2c_WaitAck(void);
@@ -49,6 +49,10 @@ void i2c_SendByte(u8 *data_byte);
 u32 i2c_ReadByte( void);
 u32 I2C_Write(u8 slave_addr, u8 *data, u32 data_length);
 u32 I2C_Read(u8 slave_addr, u8 *buff, u8 numByteToRead);
+void i2c_Falling_Exti_Enable(u8 i2c_exti_gpio, u32 i2c_exti_mode);
+void i2c_Falling_Exti_Disable(u8 i2c_exti_gpio, u32 i2c_exti_mode);
+void i2c_Rising_Exti_Enable(u8 i2c_exti_gpio, u32 i2c_exti_mode);
+void i2c_Rising_Exti_Disable(u8 i2c_exti_gpio, u32 i2c_exti_mode);
 void test(void);
 void callback(void);
 
