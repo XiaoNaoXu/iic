@@ -21,106 +21,30 @@
 #include "main.h"
 #include "i2c.h"
 
-/* Private includes ----------------------------------------------------------*/
-/* USER CODE BEGIN Includes */
 
-/* USER CODE END Includes */
-
-/* Private typedef -----------------------------------------------------------*/
-/* USER CODE BEGIN PTD */
-
-/* USER CODE END PTD */
-
-/* Private define ------------------------------------------------------------*/
-/* USER CODE BEGIN PD */
-/* USER CODE END PD */
-
-/* Private macro -------------------------------------------------------------*/
-/* USER CODE BEGIN PM */
-
-/* USER CODE END PM */
-
-/* Private variables ---------------------------------------------------------*/
-
-/* USER CODE BEGIN PV */
-
-/* USER CODE END PV */
-
-/* Private function prototypes -----------------------------------------------*/
 void SystemClock_Config(void);
 static void MX_GPIO_Init(void);
-/* USER CODE BEGIN PFP */
-
-/* USER CODE END PFP */
-
-/* Private user code ---------------------------------------------------------*/
-/* USER CODE BEGIN 0 */
-
-/* USER CODE END 0 */
 
 /**
   * @brief  The application entry point.
   * @retval int
   */
+	
 int main(void)
 {
-	//u8 test[] = {0, 1, 2, 3, 4, 5};
-  /* USER CODE BEGIN 1 */
-
-  /* USER CODE END 1 */
-
-  /* MCU Configuration--------------------------------------------------------*/
-
-  /* Reset of all peripherals, Initializes the Flash interface and the Systick. */
   HAL_Init();
 
-  /* USER CODE BEGIN Init */
-
-  /* USER CODE END Init */
-
-  /* Configure the system clock */
   SystemClock_Config();
 
-  /* USER CODE BEGIN SysInit */
-
-  /* USER CODE END SysInit */
-
-  /* Initialize all configured peripherals */
   MX_GPIO_Init();
-  /* USER CODE BEGIN 2 */
 
-  /* USER CODE END 2 */
-
-  /* Infinite loop */
-  /* USER CODE BEGIN WHILE */
+	i2c_Gpio10_Falling_Exti_Enable();
 	
-
-	//HAL_GPIO_WritePin(GPIOC, GPIO_PIN_5, GPIO_PIN_SET);
-	//I2C_Write(I2C_WRITE_ADDRESS, test, 6);
-//	I2C_I();
 	
   while (1)
   {
-		//test();
-//		I2C_SCL_1();
-//		delay();
-//		I2C_SCL_0();
-//		delay();
-//		I2C_SCL_1();
-//		delay();
-//		I2C_SCL_0();
-//		delay();
-//		HAL_GPIO_WritePin(I2C_PORT_GPIO, I2C_SCL_PIN, 0U);
-//	delay();
-//	HAL_GPIO_WritePin(I2C_PORT_GPIO, I2C_SCL_PIN, 1U);
-//	delay();
-//	HAL_GPIO_WritePin(I2C_PORT_GPIO, I2C_SCL_PIN, 0U);
 		
-    /* USER CODE END WHILE */
-
-    /* USER CODE BEGIN 3 */
   }
-  /* USER CODE END 3 */
 }
 
 /**
@@ -196,31 +120,27 @@ static void MX_GPIO_Init(void)
   HAL_GPIO_Init(GPIOC, &GPIO_InitStruct);
 	HAL_GPIO_WritePin(GPIOC, GPIO_PIN_4|GPIO_PIN_5, GPIO_PIN_SET);
 	
-//	GPIO_InitStruct.Pin = GPIO_PIN_5;
-//  GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_OD;
-//  GPIO_InitStruct.Pull = GPIO_NOPULL;
-//  GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_HIGH;
-
-	  /*Configure GPIO pin : PC10 */
-  GPIO_InitStruct.Pin = GPIO_PIN_10;
-  GPIO_InitStruct.Mode = GPIO_MODE_IT_FALLING;
-  GPIO_InitStruct.Pull = GPIO_PULLUP;
-  HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
-
-  /* EXTI interrupt init*/
-  HAL_NVIC_SetPriority(EXTI4_15_IRQn, 0, 0);
-  HAL_NVIC_EnableIRQ(EXTI4_15_IRQn);
 
 }
 
 /* USER CODE BEGIN 4 */
 void HAL_GPIO_EXTI_Falling_Callback(uint16_t GPIO_Pin)
 {
-	if(is_i2c_Start()){
+	if(is_i2c_Start() && GPIO_Pin == GPIO_PIN_10){
 		callback();
-		//HAL_NVIC_DisableIRQ(EXTI4_15_IRQn);
+//		i2c_Gpio10_Falling_Exti_Disable();
+//    i2c_Gpio10_Rising_Exti_Enable();
+		//I2C_Read();
 	}
-  
+}
+
+void HAL_GPIO_EXTI_Rising_Callback(uint16_t GPIO_Pin)
+{
+	if(is_i2c_Stop()){
+		callback();
+		i2c_Gpio10_Rising_Exti_Disable();
+		i2c_Gpio10_Falling_Exti_Enable();
+	}
 }
 
 /* USER CODE END 4 */

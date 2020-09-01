@@ -24,14 +24,29 @@ void i2c_Stop(){
 	I2C_SDA_1();
 }
 
-u8 i2c_WaitAck(){
-	u8 re_value;
-	I2C_SDA_1();
+void i2c_SendAck(void){
+	I2C_SDA_0();
+	delay();
 	I2C_SCL_1();
 	delay();
-	re_value = I2C_SDA_READ();
 	I2C_SCL_0();
 	delay();
+	I2C_SDA_1();
+}
+void i2c_SendNAck(void){
+	I2C_SDA_1();
+	delay();
+	I2C_SCL_1();
+	delay();
+	I2C_SCL_0();
+}
+
+u8 i2c_WaitAck(){
+	u8 re_value;
+	if(I2C_SDA_READ() & I2C_SCL_READ()){
+		delay();
+		re_value = I2C_SDA_READ();
+	}
 	return re_value;
 }
 
@@ -41,12 +56,6 @@ void I2C_SendByte(u8 *data_byte){
 		//
 		j = (*data_byte) & 0x80;
 		(j) ? (I2C_SDA_1()):(I2C_SDA_0());
-//		if(j){
-//			I2C_SDA_1();
-//		}
-//		else{
-//			I2C_SDA_0();
-//		}
 		delay();
 		I2C_SCL_1();
 		delay();
@@ -62,11 +71,14 @@ u8 I2C_ReadByte(){
 	u8 i, value = 0;
 	for(i = 0; i < 8; ++i){
 		value <<= 1U;
-		I2C_SCL_1();
-		delay();
-		value |= I2C_SDA_READ();
-		I2C_SCL_0();
-		delay();
+		if(I2C_SCL_READ()){
+			delay();
+		  if(I2C_SCL_READ())
+			{	
+				delay();
+				value |= I2C_SDA_READ();
+			}
+		}
 	}
 	return value;
 }

@@ -2,11 +2,16 @@
 #define I2C_H
 
 #include "stm32g0xx_hal.h"
-#include "main.h"
+#include <stdlib.h>
 
 typedef uint32_t u32;
 typedef uint16_t u16;
 typedef uint8_t u8;
+
+#define MCO_Pin GPIO_PIN_0
+#define MCO_GPIO_Port GPIOF
+#define LED_GREEN_Pin GPIO_PIN_5
+#define LED_GREEN_GPIO_Port GPIOA
 
 //
 #define I2C_WRITE_ADDRESS 0xA0
@@ -29,33 +34,36 @@ typedef uint8_t u8;
 #define I2C_SDA_1() HAL_GPIO_WritePin(I2C_PORT_GPIO, I2C_SDA_PIN, GPIO_PIN_SET)
 #define I2C_SDA_0() HAL_GPIO_WritePin(I2C_PORT_GPIO, I2C_SDA_PIN, GPIO_PIN_RESET)
 
-#define I2C_SDA_READ() (I2C_PORT_GPIO->IDR & I2C_SDA_PIN)									// read SDA status
+//#define I2C_SDA_READ() (I2C_PORT_GPIO->IDR & I2C_SDA_PIN)									// read SDA status
+#define I2C_SDA_READ() HAL_GPIO_ReadPin(I2C_PORT_GPIO, I2C_SDA_PIN)
 //#define I2C_SCL_READ() (I2C_PORT_GPIO->IDR & I2C_SCL_PIN)									// read SCL status
 #define I2C_SCL_READ() HAL_GPIO_ReadPin(I2C_PORT_GPIO, I2C_SCL_PIN)
 
 //LED Control
 #define LED_ON HAL_GPIO_WritePin(LED_GREEN_GPIO_Port, LED_GREEN_Pin, GPIO_PIN_SET)        // LED4 UP, PA5 = 1
 #define LED_OFF HAL_GPIO_WritePin(LED_GREEN_GPIO_Port, LED_GREEN_Pin, GPIO_PIN_RESET)       // LED4 DOWN, PA5 = 0
+#define LED_ON_() HAL_GPIO_WritePin(LED_GREEN_GPIO_Port, LED_GREEN_Pin, GPIO_PIN_SET)        // LED4 UP, PA5 = 1
+#define LED_OFF_() HAL_GPIO_WritePin(LED_GREEN_GPIO_Port, LED_GREEN_Pin, GPIO_PIN_RESET)       // LED4 DOWN, PA5 = 0
 
 //the time delay function
 void delay(void);
 
 u8 is_i2c_Start(void);
 u8 is_i2c_Stop(void);
-void i2c_Ack(void);
-void i2c_NAck(void);
+void i2c_SendAck(void);
+void i2c_SendNAck(void);
 u8 i2c_WaitAck(void);
 void i2c_SendByte(u8 *data_byte);
 u32 i2c_ReadByte( void);
-u32 I2C_Write(u8 slave_addr, u8 *data, u32 data_length);
-u32 I2C_Read(u8 slave_addr, u8 *buff, u8 numByteToRead);
-void i2c_Falling_Exti_Enable(u8 i2c_exti_gpio, u32 i2c_exti_mode);
-void i2c_Falling_Exti_Disable(u8 i2c_exti_gpio, u32 i2c_exti_mode);
-void i2c_Rising_Exti_Enable(u8 i2c_exti_gpio, u32 i2c_exti_mode);
-void i2c_Rising_Exti_Disable(u8 i2c_exti_gpio, u32 i2c_exti_mode);
+u32 I2C_Write(u8 *data, u32 data_length);
+u32 I2C_Read(void);
+void i2c_Gpio10_Falling_Exti_Enable(void);
+void i2c_Gpio10_Falling_Exti_Disable(void);
+void i2c_Gpio10_Rising_Exti_Enable(void);
+void i2c_Gpio10_Rising_Exti_Disable(void);
 void test(void);
 void callback(void);
-
+void LED_con(u8);
 
 #endif
 

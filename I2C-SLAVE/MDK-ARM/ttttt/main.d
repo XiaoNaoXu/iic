@@ -29,3 +29,4 @@ ttttt\main.o: ../Drivers/STM32G0xx_HAL_Driver/Inc/stm32g0xx_hal_flash_ex.h
 ttttt\main.o: ../Drivers/STM32G0xx_HAL_Driver/Inc/stm32g0xx_hal_pwr.h
 ttttt\main.o: ../Drivers/STM32G0xx_HAL_Driver/Inc/stm32g0xx_hal_pwr_ex.h
 ttttt\main.o: ../Core/Inc/i2c.h
+ttttt\main.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdlib.h

@@ -21,17 +21,22 @@ Target DLL:      STLink\ST-LINKIII-KEIL_SWO.dll V3.0.5.0
 Dialog DLL:      TARMCM1.DLL V1.14.0.0
  
 <h2>Project:</h2>
-C:\Users\SHDHoChe\Documents\project\iic\I2C-MATER\MDK-ARM\ttttt.uvprojx
+C:\Users\SHDHoChe\Documents\project\iic\I2C-MASTER\MDK-ARM\ttttt.uvprojx
 Project File Date:  08/31/2020
 
 <h2>Output:</h2>
 *** Using Compiler 'V5.06 update 6 (build 750)', folder: 'C:\Keil_v5\ARM\ARMCC\Bin'
 Build target 'ttttt'
-compiling main.c...
+compiling i2c.c...
+..\Core\Src\i2c.c(87): warning:  #177-D: variable "pdata"  was declared but never referenced
+  	u8 *pdata = data;
+..\Core\Src\i2c.c(88): warning:  #177-D: variable "len"  was declared but never referenced
+  	u32 len = data_length;
+..\Core\Src\i2c.c: 2 warnings, 0 errors
 linking...
 Program Size: Code=2916 RO-data=280 RW-data=16 ZI-data=1024  
 FromELF: creating hex file...
-"ttttt\ttttt.axf" - 0 Error(s), 0 Warning(s).
+"ttttt\ttttt.axf" - 0 Error(s), 2 Warning(s).
 
 <h2>Software Packages used:</h2>
 

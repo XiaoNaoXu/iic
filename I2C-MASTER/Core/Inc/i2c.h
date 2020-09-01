@@ -42,8 +42,8 @@ void delay(void);
 
 void i2c_Start(void);
 void i2c_Stop(void);
-void i2c_Ack(void);
-void i2c_NAck(void);
+void i2c_SendAck(void);
+void i2c_SendNAck(void);
 u8 i2c_WaitAck(void);
 void i2c_SendByte(u8 *data_byte);
 u32 i2c_ReadByte( void);
