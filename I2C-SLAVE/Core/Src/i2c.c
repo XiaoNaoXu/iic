@@ -14,12 +14,9 @@ void delay()
 }
 
 u8 is_i2c_Start(){
-	for(i=0; i<50000; ++i);
-	if(I2C_SCL_READ()){
-		for(i=0; i<50550; ++i);
-		if(!I2C_SCL_READ()){
-			return GPIO_PIN_SET;
-		}
+	for(i=0; i<300; ++i);
+	if(I2C_SCL_READ() && (!I2C_SDA_READ())){
+		return GPIO_PIN_SET;
 	}
 	return GPIO_PIN_RESET;
 }
@@ -134,7 +131,7 @@ void i2c_Gpio10_Falling_Exti_Enable(){
 void i2c_Gpio10_Falling_Exti_Disable(){
 	//HAL_GPIO_DeInit(GPIOA, GPIO_PIN_10);
 	//__HAL_GPIO_EXTI_CLEAR_IT(GPIO_PIN_10);
-	__HAL_GPIO_EXTI_CLEAR_FALLING_IT(GPIO_PIN_10);
+	//__HAL_GPIO_EXTI_CLEAR_FALLING_IT(GPIO_PIN_10);
 	
 }
 
@@ -155,21 +152,23 @@ void i2c_Gpio10_Rising_Exti_Enable(){
 
 void i2c_Gpio10_Rising_Exti_Disable(){
 	
-  __HAL_GPIO_EXTI_CLEAR_RISING_IT(GPIO_PIN_10);
+  //__HAL_GPIO_EXTI_CLEAR_RISING_IT(GPIO_PIN_10);
 	
 }
 
 void callback(){
 	LED_ON;
-	for(i=0; i<30000; ++i);
+	for(i = 0; i < 3000; ++i);
 	LED_OFF;
 }
 
 void LED_con(u8 var){
-	u32 i = 0;
+	u32 i = 0, j;
 	for(i = 0; i < 8; ++i){
-		((0x80) & var) ? (LED_ON_()):(LED_OFF_());
-		for(i=0; i < 30000; ++i);
+		j = ((0x80) & var);
+		if(j == 0x80){
+			callback();
+		}
 		var <<= 1U;
 	}
 }

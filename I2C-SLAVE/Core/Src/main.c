@@ -39,11 +39,9 @@ int main(void)
   MX_GPIO_Init();
 
 	i2c_Gpio10_Falling_Exti_Enable();
-	
-	
+	LED_con(0x44);
   while (1)
   {
-		
   }
 }
 
@@ -100,7 +98,7 @@ static void MX_GPIO_Init(void)
   __HAL_RCC_GPIOC_CLK_ENABLE();
 
   /*Configure GPIO pin Output Level */
-  HAL_GPIO_WritePin(LED_GREEN_GPIO_Port, LED_GREEN_Pin | GPIO_PIN_10, GPIO_PIN_RESET);
+  HAL_GPIO_WritePin(LED_GREEN_GPIO_Port, LED_GREEN_Pin, GPIO_PIN_RESET);
 
   /*Configure GPIO pin Output Level */
 
@@ -118,9 +116,10 @@ static void MX_GPIO_Init(void)
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_HIGH;
   HAL_GPIO_Init(GPIOC, &GPIO_InitStruct);
+	
 	HAL_GPIO_WritePin(GPIOC, GPIO_PIN_4|GPIO_PIN_5, GPIO_PIN_SET);
 	
-
+	
 }
 
 /* USER CODE BEGIN 4 */
@@ -128,8 +127,8 @@ void HAL_GPIO_EXTI_Falling_Callback(uint16_t GPIO_Pin)
 {
 	if(is_i2c_Start() && GPIO_Pin == GPIO_PIN_10){
 		callback();
-//		i2c_Gpio10_Falling_Exti_Disable();
-//    i2c_Gpio10_Rising_Exti_Enable();
+		//i2c_Gpio10_Falling_Exti_Disable();
+    //i2c_Gpio10_Rising_Exti_Enable();
 		//I2C_Read();
 	}
 }
