@@ -47,9 +47,14 @@ void i2c_SendNAck(void);
 u8 i2c_WaitAck(void);
 void i2c_SendByte(u8 *data_byte);
 u32 i2c_ReadByte( void);
-u32 I2C_Write(u8 slave_addr, u8 *data, u32 data_length);
-u32 I2C_Read(u8 slave_addr, u8 *buff, u8 numByteToRead);
+u32 I2C_Write(u8, u8 *, u32);
+u32 I2C_Read(u8, u8 *, u8);
 void test(void);
+
+void delay_us(uint32_t us);
+void delay_ms(uint32_t ms);
+
+void LED(u32);
 
 
 #endif

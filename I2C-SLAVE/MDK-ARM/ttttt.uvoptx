@@ -152,9 +152,9 @@
         <Bp>
           <Number>0</Number>
           <Type>0</Type>
-          <LineNumber>129</LineNumber>
+          <LineNumber>38</LineNumber>
           <EnabledFlag>1</EnabledFlag>
-          <Address>134221908</Address>
+          <Address>134222096</Address>
           <ByteObject>0</ByteObject>
           <HtxType>0</HtxType>
           <ManyObjects>0</ManyObjects>
@@ -163,28 +163,44 @@
           <BreakIfRCount>1</BreakIfRCount>
           <Filename>..\Core\Src\i2c.c</Filename>
           <ExecCommand></ExecCommand>
-          <Expression>\\ttttt\../Core/Src/i2c.c\129</Expression>
+          <Expression>\\ttttt\../Core/Src/i2c.c\38</Expression>
         </Bp>
         <Bp>
           <Number>1</Number>
           <Type>0</Type>
-          <LineNumber>494</LineNumber>
+          <LineNumber>40</LineNumber>
           <EnabledFlag>1</EnabledFlag>
-          <Address>134218120</Address>
+          <Address>134222100</Address>
           <ByteObject>0</ByteObject>
           <HtxType>0</HtxType>
           <ManyObjects>0</ManyObjects>
           <SizeOfObject>0</SizeOfObject>
           <BreakByAccess>0</BreakByAccess>
           <BreakIfRCount>1</BreakIfRCount>
-          <Filename>../Drivers/STM32G0xx_HAL_Driver/Src/stm32g0xx_hal_gpio.c</Filename>
+          <Filename>..\Core\Src\i2c.c</Filename>
           <ExecCommand></ExecCommand>
-          <Expression>\\ttttt\../Drivers/STM32G0xx_HAL_Driver/Src/stm32g0xx_hal_gpio.c\494</Expression>
+          <Expression>\\ttttt\../Core/Src/i2c.c\40</Expression>
         </Bp>
         <Bp>
           <Number>2</Number>
           <Type>0</Type>
-          <LineNumber>125</LineNumber>
+          <LineNumber>39</LineNumber>
+          <EnabledFlag>1</EnabledFlag>
+          <Address>0</Address>
+          <ByteObject>0</ByteObject>
+          <HtxType>0</HtxType>
+          <ManyObjects>0</ManyObjects>
+          <SizeOfObject>0</SizeOfObject>
+          <BreakByAccess>0</BreakByAccess>
+          <BreakIfRCount>0</BreakIfRCount>
+          <Filename>..\Core\Src\i2c.c</Filename>
+          <ExecCommand></ExecCommand>
+          <Expression></Expression>
+        </Bp>
+        <Bp>
+          <Number>3</Number>
+          <Type>0</Type>
+          <LineNumber>41</LineNumber>
           <EnabledFlag>1</EnabledFlag>
           <Address>0</Address>
           <ByteObject>0</ByteObject>

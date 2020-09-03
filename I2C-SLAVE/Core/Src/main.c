@@ -39,7 +39,6 @@ int main(void)
   MX_GPIO_Init();
 
 	i2c_Gpio10_Falling_Exti_Enable();
-	LED_con(0x44);
   while (1)
   {
   }
@@ -127,9 +126,9 @@ void HAL_GPIO_EXTI_Falling_Callback(uint16_t GPIO_Pin)
 {
 	if(is_i2c_Start() && GPIO_Pin == GPIO_PIN_10){
 		callback();
-		//i2c_Gpio10_Falling_Exti_Disable();
-    //i2c_Gpio10_Rising_Exti_Enable();
-		//I2C_Read();
+		i2c_Gpio10_Falling_Exti_Disable();
+    i2c_Gpio10_Rising_Exti_Enable();
+		I2C_Read();
 	}
 }
 
