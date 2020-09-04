@@ -64,35 +64,20 @@ void SystemClock_Config(void);
   */
 int main(void)
 {
-  /* USER CODE BEGIN 1 */
-
-  /* USER CODE END 1 */
-
   /* MCU Configuration--------------------------------------------------------*/
 
   /* Reset of all peripherals, Initializes the Flash interface and the Systick. */
   HAL_Init();
 
-  /* USER CODE BEGIN Init */
-
-  /* USER CODE END Init */
 
   /* Configure the system clock */
   SystemClock_Config();
 
-  /* USER CODE BEGIN SysInit */
-
-  /* USER CODE END SysInit */
 
   /* Initialize all configured peripherals */
   MX_GPIO_Init();
-  /* USER CODE BEGIN 2 */
-
-  /* USER CODE END 2 */
 
   /* Infinite loop */
-  /* USER CODE BEGIN WHILE */
-	i2c_Gpio10_Falling_Exti_Enable();
   while (1)
   {
     /* USER CODE END WHILE */
@@ -148,20 +133,18 @@ void SystemClock_Config(void)
 /* USER CODE BEGIN 4 */
 void HAL_GPIO_EXTI_Falling_Callback(uint16_t GPIO_Pin)
 {
-	if(is_i2c_Start() && GPIO_Pin == GPIO_PIN_10){
-		callback();
-		i2c_Gpio10_Falling_Exti_Disable();
-    i2c_Gpio10_Rising_Exti_Enable();
+	if(is_i2c_Start() && GPIO_Pin == GPIO_PIN_5){
+		//callback();
 		I2C_Read();
+		//i2c_Gpio10_Falling_Exti_Enable();
 	}
+	i2c_slave_SCL_Falling_Exti_Disable();
 }
 
 void HAL_GPIO_EXTI_Rising_Callback(uint16_t GPIO_Pin)
 {
 	if(is_i2c_Stop()){
 		callback();
-		i2c_Gpio10_Rising_Exti_Disable();
-		i2c_Gpio10_Falling_Exti_Enable();
 	}
 }
 /* USER CODE END 4 */

@@ -18,12 +18,19 @@ typedef uint8_t u8;
 #define I2C_READ_ADDRESS 0xA1
 
 //I2C port select
-#define I2C_PORT_GPIO GPIOC
+#define I2C_SDA_PORT GPIOC
+#define I2C_SCL_PORT GPIOC
 #define I2C_SDA_PIN GPIO_PIN_4
 #define I2C_SCL_PIN GPIO_PIN_5
 
+/* Initialise I2C interface as MASTER*/
+I2C_MST_YYYYY
+
+/* Initialise I2C interface as SLAVE*/
+I2C_SLV_XXXX
+
 //SCL
-//#define I2C_SCL_1() I2C_PORT_GPIO->BSRR = I2C_SCL_PIN											  // SCL = 1 
+#define I2C_SCL_1() I2C_SCL_PORT->ODR = I2C_SCL_PIN											  // SCL = 1 
 //#define I2C_SCL_0() I2C_PORT_GPIO->BSRR = (uint32_t)I2C_SCL_PIN << 16U  		// SCL = 0 
 #define I2C_SCL_1() HAL_GPIO_WritePin(I2C_PORT_GPIO, I2C_SCL_PIN, GPIO_PIN_SET)
 #define I2C_SCL_0() HAL_GPIO_WritePin(I2C_PORT_GPIO, I2C_SCL_PIN, GPIO_PIN_RESET)

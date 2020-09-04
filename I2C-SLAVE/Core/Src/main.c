@@ -108,17 +108,20 @@ static void MX_GPIO_Init(void)
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_HIGH;
   HAL_GPIO_Init(LED_GREEN_GPIO_Port, &GPIO_InitStruct);
 
-  /*Configure GPIO pins : PC4 PC5 */
-	HAL_GPIO_WritePin(GPIOC, GPIO_PIN_4|GPIO_PIN_5, GPIO_PIN_RESET);
-  GPIO_InitStruct.Pin = GPIO_PIN_4 | GPIO_PIN_5;
+  // I2C SDA - PC4
+  GPIO_InitStruct.Pin = I2C_SDA_PIN;
   GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_OD;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_HIGH;
-  HAL_GPIO_Init(GPIOC, &GPIO_InitStruct);
-	
-	HAL_GPIO_WritePin(GPIOC, GPIO_PIN_4|GPIO_PIN_5, GPIO_PIN_SET);
+  HAL_GPIO_Init(I2C_SDA_PORT, &GPIO_InitStruct);
 	
 	
+	// I2C SCL - PC5
+  GPIO_InitStruct.Pin = I2C_SCL_PIN;
+  GPIO_InitStruct.Mode = GPIO_MODE_IT_FALLING;
+  GPIO_InitStruct.Pull = GPIO_NOPULL;
+  GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_HIGH;
+  HAL_GPIO_Init(I2C_SCL_PORT, &GPIO_InitStruct);
 }
 
 /* USER CODE BEGIN 4 */

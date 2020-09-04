@@ -36,8 +36,8 @@ void i2c_Start(){
 	I2C_SDA_1();
 	delay_us(2);
 	I2C_SDA_0();
-	delay_us(1);
 	I2C_SCL_0();
+	delay_us(2);
 }
 
 /**
@@ -74,7 +74,7 @@ void i2c_SendNAck(void){
 }
 
 /**
-* @brief wiat slave or master return a 
+* @brief wiat slave or master return ack
 * @param[in] re_value: A ack or a Nack
 * @retval uint8_t:acknowledge
 */
@@ -89,8 +89,13 @@ u8 i2c_WaitAck(){
 	return re_value;
 }
 
+/**
+* @brief send a byte
+* @param[in] i: Control loop variable
+* @retval void
+*/
 void I2C_SendByte(u8 data_byte){
-	u8 i = 0, j = 0;
+	__IO u8 i = 0, j = 0;
 	for(i = 0; i < 8; ++i){
 		//
 		j = (data_byte) & 0x80;
@@ -104,7 +109,7 @@ void I2C_SendByte(u8 data_byte){
 }
 
 u8 I2C_ReadByte(){
-	u8 i, value = 0;
+	__IO u8 i, value = 0;
 	for(i = 0; i < 8; ++i){
 		value <<= 1U;
 		if(I2C_SCL_READ()){
@@ -139,7 +144,7 @@ u32 I2C_Read(u8 slave_addr, u8 *buff, u8 numByteToRead){
 
 void test(void){
 	I2C_SCL_1();
-	u8 i = I2C_SCL_READ();
+	__IO u8 i = I2C_SCL_READ();
 	if(I2C_SCL_READ()){
 		LED_ON;
 		delay_us(2);

@@ -38,17 +38,25 @@ typedef uint8_t u8;
 #define LED_OFF HAL_GPIO_WritePin(LED_GREEN_GPIO_Port, LED_GREEN_Pin, GPIO_PIN_RESET)       // LED4 DOWN, PA5 = 0
 
 //the time delay function
-void delay(void);
+void delay_us(u32);
+void delay_ms(u32);
 
+//start and stop signal
 void i2c_Start(void);
 void i2c_Stop(void);
+
+//acknowledge
 void i2c_SendAck(void);
 void i2c_SendNAck(void);
 u8 i2c_WaitAck(void);
+
+//Send and receive data
 void i2c_SendByte(u8 *data_byte);
 u32 i2c_ReadByte( void);
 u32 I2C_Write(u8, u8 *, u32);
 u32 I2C_Read(u8, u8 *, u8);
+
+
 void test(void);
 
 void delay_us(uint32_t us);
