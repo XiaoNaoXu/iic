@@ -39,8 +39,8 @@ typedef uint8_t u8;
 #define I2C_SDA_1() HAL_GPIO_WritePin(I2C_SDA_PORT, I2C_SDA_PIN, GPIO_PIN_SET)
 #define I2C_SDA_0() HAL_GPIO_WritePin(I2C_SDA_PORT, I2C_SDA_PIN, GPIO_PIN_RESET)
 
-#define I2C_SDA_READ() (I2C_PORT_GPIO->IDR & I2C_SDA_PIN)									// read SDA status
-//#define I2C_SDA_READ() HAL_GPIO_ReadPin(I2C_SDA_PORT, I2C_SDA_PIN)
+//#define I2C_SDA_READ() (I2C_PORT_GPIO->IDR & I2C_SDA_PIN)									// read SDA status
+#define I2C_SDA_READ() HAL_GPIO_ReadPin(I2C_SDA_PORT, I2C_SDA_PIN)
 //#define I2C_SCL_READ() (I2C_PORT_GPIO->IDR & I2C_SCL_PIN)									// read SCL status
 #define I2C_SCL_READ() HAL_GPIO_ReadPin(I2C_SCL_PORT, I2C_SCL_PIN)
 

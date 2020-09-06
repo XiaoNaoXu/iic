@@ -13,7 +13,7 @@ u32 buff_size = 10U;
 */
 void delay_us(uint32_t us)
 {
-	__IO int i = us;
+	__IO int i = us * 12;
 	while(i--);
 }
 
@@ -53,6 +53,7 @@ void i2c_SendAck(void){
 void i2c_SendNAck(void){
 	I2C_SDA_1();
 	delay_us(2);
+	I2C_SDA_0();
 }
 
 u8 i2c_WaitAck(){
@@ -80,14 +81,18 @@ void I2C_SendByte(u8 *data_byte){
 }
 
 u8 I2C_ReadByte(){
-	__IO u8 i, value = 0;
+	__IO u8 i, value = 0, j;
 	for(i = 0; i < 8; ++i){
-		LED(2);
-		value <<= 1U;
-		while(I2C_SCL_READ()){
-			value |= I2C_SDA_READ();
-		}
 		delay_us(2);
+		value <<= 1U;
+		while(1){
+			if(I2C_SCL_READ()){
+				LED(0);
+				j = I2C_SDA_READ();
+			  value |= j;
+			  break;
+			}
+		}
 	}
 	return value;
 }
@@ -107,26 +112,26 @@ u32 I2C_Write(u8 *data, u32 data_length){
 	return 0;
 }
 u32 I2C_Read(){
-//	u8 *rdata = (u8 *)malloc(sizeof(u8) * buff_size);
-//	u8 wdata[] = {0, 1, 2, 3};
-//	u32 i = 0;
+	u8 *rdata = (u8 *)malloc(sizeof(u8) * buff_size);
+	u8 wdata[] = {0, 1, 2, 3};
+	u32 i = 0;
 	__IO u8 slave_addr = I2C_ReadByte();
-//	LED_con(slave_addr);
-//	if(slave_addr == self_addr_write){
-//		I2C_Write(wdata, 4);
-//	}
-//	else if(slave_addr == self_addr_read){
-//		while(!is_i2c_Stop()){
-//			rdata[++i] = I2C_ReadByte();
-//			if(i == buff_size){
-//				i2c_SendNAck();
-//				break;
-//			}
-//			i2c_SendAck();
-//		}
-//	}
-//	free(rdata);
-//	LED_con(0x44);
+	LED(0);
+	i2c_SendNAck();
+	if(slave_addr == self_addr_write){
+		I2C_Write(wdata, 4);
+	}
+	else if(slave_addr == self_addr_read){
+		while(!is_i2c_Stop()){
+			rdata[++i] = I2C_ReadByte();
+			if(i == buff_size){
+				i2c_SendNAck();
+				break;
+			}
+			i2c_SendAck();
+		}
+	}
+	free(rdata);
 	i2c_slave_SCL_Falling_Exti_Enable();
 	return 0;
 }
@@ -146,7 +151,7 @@ void i2c_slave_SCL_Falling_Exti_Enable(){
 }
 
 void i2c_slave_SCL_Falling_Exti_Disable(){
-	//HAL_GPIO_DeInit(GPIOA, GPIO_PIN_10);
+	HAL_GPIO_DeInit(GPIOA, GPIO_PIN_10);
 	__HAL_GPIO_EXTI_CLEAR_IT(GPIO_PIN_5);
 	HAL_NVIC_DisableIRQ(EXTI4_15_IRQn);
 	//__HAL_GPIO_EXTI_CLEAR_FALLING_IT(GPIO_PIN_10);

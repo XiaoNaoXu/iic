@@ -134,11 +134,13 @@ void SystemClock_Config(void)
 void HAL_GPIO_EXTI_Falling_Callback(uint16_t GPIO_Pin)
 {
 	if(is_i2c_Start() && GPIO_Pin == GPIO_PIN_5){
+		i2c_slave_SCL_Falling_Exti_Disable();
 		//callback();
 		I2C_Read();
 		//i2c_Gpio10_Falling_Exti_Enable();
+		
 	}
-	i2c_slave_SCL_Falling_Exti_Disable();
+	
 }
 
 void HAL_GPIO_EXTI_Rising_Callback(uint16_t GPIO_Pin)

@@ -39,7 +39,7 @@ int main(void)
   HAL_Init();
   SystemClock_Config();
   MX_GPIO_Init();
-	I2C_Write(I2C_WRITE_ADDRESS, test, 6);
+	I2C_Write(I2C_WRITE_ADDRESS, test, 2);
   while (0)
   {
   }

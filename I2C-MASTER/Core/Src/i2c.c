@@ -80,11 +80,9 @@ void i2c_SendNAck(void){
 */
 u8 i2c_WaitAck(){
 	u8 re_value;
-	I2C_SCL_0();
-	delay_us(2);
 	I2C_SCL_1();
-	re_value = I2C_SDA_READ();
 	delay_us(2);
+	re_value = I2C_SDA_READ();
 	I2C_SCL_0();
 	return re_value;
 }
@@ -125,16 +123,16 @@ u8 I2C_ReadByte(){
 }
 
 u32 I2C_Write(u8 slave_addr, u8 *data, u32 data_length){
-//	u8 *pdata = data;
-//	u32 len = data_length;
+	u8 *pdata = data;
+	u32 len = data_length;
 	i2c_Start();
 	I2C_SendByte(slave_addr);
-//	if(!i2c_WaitAck()){
-//		//	while(len--){
-////		I2C_SendByte(&pdata[len]);
-////		delay_us(2);
-////	}
-//	}
+	if(!i2c_WaitAck()){
+		while(len--){
+			I2C_SendByte(pdata[len]);
+			delay_us(2);
+		}
+	}
 	i2c_Stop();		
 	return 0;
 }
